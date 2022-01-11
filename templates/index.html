@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="{{ url_for('static', filename='myjs.js') }}"></script>
+
+
+    <title>이 디저트 먹어볼래?</title>
+
+    <script>
+
+    </script>
+
+</head>
+<body>
+    <header class="header-wrap">
+        <h1 class="header-title">이 디저트 먹어볼래?</h1>
+    </header>
+
+    <container class="wrap">
+        {% for dessert in dessert_list %}
+            {% if dessert.heart_by_me %}
+                {% set class_heart = "fas" %}
+            {% else %}
+                {% set class_heart = "far" %}
+            {% endif %}
+
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src={{ dessert['img_url'] }}>
+                <div class="card-body">
+                    <h5 class="card-title">{{ dessert.dessert_name }}</h5>
+                    <a class="level-item is-sparta" aria-label="heart"
+                   onclick="toggle_like(`{{ dessert.dessert_name }}`)">
+                        <span class="icon is-small">
+                            <i class="{{ class_heart }} fa-heart" aria-hidden="true"></i>
+                        </span>
+                        &nbsp
+                        <span class="like-num">{{ dessert.count_like }}</span>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </container>
+</body>
+</html>
